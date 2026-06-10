@@ -1,0 +1,32 @@
+.about-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+
+.about-content {
+  display: grid;
+  grid-template-columns: 1fr 220px;
+  gap: 2rem;
+  align-items: start;
+}
+
+.about-body p {
+  margin-bottom: 1rem;
+}
+
+.about-img {
+  width: 100%;
+  display: block;
+  border: 1px solid #1a1a1a;
+}
+
+@media (max-width: 600px) {
+  .about-content {
+    grid-template-columns: 1fr;
+  }
+
+  .about-img {
+    width: 200px;
+  }
+}

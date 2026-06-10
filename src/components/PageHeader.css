@@ -1,0 +1,40 @@
+.page {
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.page-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 10rem;
+}
+
+.site-title {
+    font-size: 1rem;
+    font-weight: 700;
+    text-decoration: none;
+    color: #1a1a1a;
+    letter-spacing: 0.05em;
+}
+
+.site-title:visited {
+    color: #1a1a1a;
+}
+
+.page-nav {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.page-nav a {
+    font-size: 0.9rem;
+    text-decoration: underline;
+}
+
+@media (max-width: 480px) {
+  .page {
+    padding: 1rem;
+  }
+}

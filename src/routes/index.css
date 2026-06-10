@@ -1,0 +1,108 @@
+.hero-bg {
+  position: fixed;
+  inset: -20px;
+  background-image: url('/images/beach.webp');
+  background-size: cover;
+  background-position: center;
+  filter: blur(6px) brightness(0.65);
+  z-index: -1;
+}
+
+/* extends inset: -20px to hide blur edge bleed */
+.hero-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 3px,
+    rgba(0, 0, 0, 0.04) 3px,
+    rgba(0, 0, 0, 0.04) 4px
+  );
+  pointer-events: none;
+}
+
+/*
+  Two-axis CSS-only bounce: outer drives X, inner drives Y.
+  Coprime durations (7s / 5s) prevent the path from repeating.
+  calc(100vw - 100%) works because transform % is relative to
+  the element's own size, not the containing block.
+*/
+.dvd-outer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: max-content;
+  animation: dvd-x 7s linear infinite alternate;
+  will-change: transform;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.dvd-inner {
+  display: block;
+  animation: dvd-y 5s linear infinite alternate;
+  will-change: transform;
+}
+
+.dvd-text {
+  display: block;
+  font-size: clamp(1.75rem, 8vw, 5rem);
+  font-weight: 700;
+  color: #cc4a1c;
+  white-space: nowrap;
+  letter-spacing: 0.05em;
+  padding: 0.2em 0.4em;
+  text-shadow:
+    1px 1px 0 #7a2500,
+    2px 2px 0 #7a2500,
+    3px 3px 0 #7a2500,
+    4px 4px 0 #7a2500,
+    5px 5px 0 #7a2500,
+    6px 6px 0 #7a2500,
+    7px 7px 10px rgba(0, 0, 0, 0.5);
+}
+
+@keyframes dvd-x {
+  from { transform: translateX(0); }
+  to   { transform: translateX(calc(100vw - 100%)); }
+}
+
+@keyframes dvd-y {
+  from { transform: translateY(0); }
+  to   { transform: translateY(calc(100vh - 100%)); }
+}
+
+.hero-nav {
+  position: fixed;
+  bottom: 3rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 3rem;
+  z-index: 10;
+}
+
+.hero-nav a {
+  color: #fff;
+  text-decoration: underline;
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+
+.hero-nav a:visited {
+  color: #ddd;
+}
+
+.hero-nav a:hover {
+  color: #ff0;
+}
+
+@media (max-width: 480px) {
+  .hero-nav {
+    gap: 1.5rem;
+    bottom: 2rem;
+  }
+}
