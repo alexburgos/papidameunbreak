@@ -15,12 +15,12 @@
     font-size: 1rem;
     font-weight: 700;
     text-decoration: none;
-    color: #1a1a1a;
+    color: #cc4a1c;
     letter-spacing: 0.05em;
 }
 
 .site-title:visited {
-    color: #1a1a1a;
+    color: #cc4a1c;
 }
 
 .page-nav {
@@ -34,7 +34,7 @@
 }
 
 @media (max-width: 480px) {
-  .page {
-    padding: 1rem;
-  }
+    .page {
+        padding: 1rem;
+    }
 }

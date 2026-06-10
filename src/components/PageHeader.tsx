@@ -5,7 +5,7 @@ export function PageHeader() {
   return (
     <header className="page-header">
       <Link to="/" className="site-title">
-        <h3>papidameunbreak</h3>
+        <h3> papidameunbreak</h3>
       </Link>
       <nav className="page-nav" aria-label="Main navigation">
         <Link to="/shop">shop</Link>
