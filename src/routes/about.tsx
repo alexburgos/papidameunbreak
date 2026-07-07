@@ -27,10 +27,9 @@ function AboutPage() {
           </p>
           <p>papidameunbreak is a brand for those who need a break.</p>
           <p>
-            {" "}
-            PS. I coded this website too and you can reach me{" "}
-            <a href="https://www.alexburgos.dev">here</a> if you ever need a web
-            developer.
+            PS. I coded this website too. If you ever need a web developer,
+            reach me at{" "}
+            <a href="https://www.alexburgos.dev">alexburgos.dev</a>.
           </p>
         </div>
         <img
