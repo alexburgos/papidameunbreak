@@ -6,6 +6,9 @@ import {
   Scripts,
   createRootRoute,
 } from "@tanstack/react-router";
+import { ShopifyProvider, CartProvider } from "@shopify/hydrogen-react";
+import { LocaleProvider } from "#/lib/locale";
+import { shopifyConfig } from "#/lib/shopify";
 import appCss from "../styles/global.css?url";
 
 export const Route = createRootRoute({
@@ -16,7 +19,7 @@ export const Route = createRootRoute({
       { title: "papidameunbreak" },
       {
         name: "description",
-        content: "papidameunbreak — tienda pa' los que necesitan un break",
+        content: "papidameunbreak — pa' los que necesitan un break",
       },
     ],
     links: [
@@ -67,7 +70,17 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
         <HeadContent />
       </head>
       <body>
-        {children}
+        <LocaleProvider>
+          <ShopifyProvider
+            storeDomain={shopifyConfig.storeDomain}
+            storefrontToken={shopifyConfig.storefrontToken}
+            storefrontApiVersion={shopifyConfig.apiVersion}
+            countryIsoCode="ES"
+            languageIsoCode="EN"
+          >
+            <CartProvider>{children}</CartProvider>
+          </ShopifyProvider>
+        </LocaleProvider>
         <Scripts />
       </body>
     </html>

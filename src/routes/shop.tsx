@@ -1,7 +1,9 @@
+import { useEffect, useRef, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { PageHeader } from "#/components/PageHeader";
-import { fetchProducts } from "#/lib/medusa";
-import type { Product } from "#/lib/medusa";
+import { ProductCard } from "#/components/ProductCard";
+import { fetchProduct } from "#/lib/shopify";
+import { useLocale } from "#/lib/locale";
 import shopCss from "./shop.css?url";
 
 export const Route = createFileRoute("/shop")({
@@ -12,50 +14,36 @@ export const Route = createFileRoute("/shop")({
     ],
     links: [{ rel: "stylesheet", href: shopCss }],
   }),
-  loader: () => fetchProducts(),
+  loader: () => fetchProduct("ES", "EN"),
   component: ShopPage,
 });
 
 function ShopPage() {
-  const products = Route.useLoaderData();
+  const initialProduct = Route.useLoaderData();
+  const { locale } = useLocale();
+  const [product, setProduct] = useState(initialProduct);
+  const skippedFirst = useRef(false);
+
+  useEffect(() => {
+    if (!skippedFirst.current) {
+      skippedFirst.current = true;
+      if (locale.country === "ES") return;
+    }
+    let cancelled = false;
+    fetchProduct(locale.country, locale.language).then((p) => {
+      if (!cancelled) setProduct(p);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [locale.country, locale.language]);
 
   return (
     <main className="page">
       <PageHeader />
-      {/*<h1 className="shop-title">shop</h1>
-      {products.length === 0 ? (
-        <p className="shop-empty">no products yet — check back soon.</p>
-      ) : (
-        <div className="product-grid">
-          {products.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-        </div>
-      )}*/}
-      <p>Big things coming...</p>
+      <div className="product-grid">
+        <ProductCard product={product} />
+      </div>
     </main>
   );
 }
-
-// function ProductCard({ product }: { product: Product }) {
-//   return (
-//     <article className="product-card">
-//       {product.thumbnail ? (
-//         <img src={product.thumbnail} alt={product.title} loading="lazy" />
-//       ) : (
-//         <div className="product-card-placeholder" aria-hidden="true">
-//           no image
-//         </div>
-//       )}
-//       <h2>{product.title}</h2>
-//       <p className="price">{product.price}</p>
-//       <a
-//         href={`/shop/${product.handle}`}
-//         className="buy-btn"
-//         aria-label={`Buy ${product.title}`}
-//       >
-//         buy
-//       </a>
-//     </article>
-//   );
-// }

@@ -1,4 +1,6 @@
 import { Link } from "@tanstack/react-router";
+import { LocaleSwitcher } from "#/components/LocaleSwitcher";
+import { Cart } from "#/components/Cart";
 import "./PageHeader.css";
 
 export function PageHeader() {
@@ -10,6 +12,8 @@ export function PageHeader() {
       <nav className="page-nav" aria-label="Main navigation">
         <Link to="/shop">shop</Link>
         <Link to="/about">about</Link>
+        <LocaleSwitcher />
+        <Cart />
       </nav>
     </header>
   );
