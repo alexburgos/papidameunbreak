@@ -1,8 +1,21 @@
 import { useState } from "react";
 import { useCart, Money } from "@shopify/hydrogen-react";
+import { isShopifyConfigured } from "#/lib/shopify";
 import "./Cart.css";
 
 export function Cart() {
+  if (!isShopifyConfigured()) {
+    return (
+      <span className="cart-toggle" aria-disabled="true">
+        cart unavailable
+      </span>
+    );
+  }
+
+  return <CartInner />;
+}
+
+function CartInner() {
   const [open, setOpen] = useState(false);
   const cart = useCart();
   const lines = cart.lines ?? [];

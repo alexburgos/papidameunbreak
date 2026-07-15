@@ -27,6 +27,10 @@ export const shopifyConfig = {
   apiVersion: API_VERSION,
 };
 
+export function isShopifyConfigured(): boolean {
+  return Boolean(STORE_DOMAIN && STOREFRONT_TOKEN);
+}
+
 const PRODUCT_QUERY = `
   query ShopHatProduct($handle: String!, $country: CountryCode!, $language: LanguageCode)
     @inContext(country: $country, language: $language) {
