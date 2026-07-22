@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, redirect } from "@tanstack/react-router";
 import { PageHeader } from "#/components/PageHeader";
 import { ProductCard } from "#/components/ProductCard";
 import { ShopProviders } from "#/components/ShopProviders";
@@ -7,7 +7,14 @@ import { fetchProduct, isShopifyConfigured, type Product } from "#/lib/shopify";
 import { useLocale } from "#/lib/locale";
 import shopCss from "./shop.css?url";
 
+// TODO: remove once the storefront is live — routes /shop to the
+// Shopify email-subscription landing page in the meantime.
+const SHOPIFY_COMING_SOON_URL = "https://r060tt-cr.myshopify.com/password";
+
 export const Route = createFileRoute("/shop")({
+  beforeLoad: () => {
+    throw redirect({ href: SHOPIFY_COMING_SOON_URL });
+  },
   head: () => ({
     meta: [
       { title: "shop — papidameunbreak" },
@@ -43,7 +50,7 @@ function ShopPage() {
   return (
     <ShopProviders>
       <main className="page">
-        <PageHeader />
+        <PageHeader showShopControls />
         <div className="product-grid">
           {product ? (
             <ProductCard product={product} />
